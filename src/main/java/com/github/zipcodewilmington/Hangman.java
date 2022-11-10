@@ -1,6 +1,7 @@
 package com.github.zipcodewilmington;
 
 
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -12,6 +13,14 @@ import java.util.Scanner;
 
 public class Hangman {
 
+    boolean gameFlag = true;
+
+    boolean wordFlag = false;
+
+    Integer numGuess = 0;
+
+    String hiddenWord = "";
+
     public Hangman(){
 
     }
@@ -20,36 +29,44 @@ public class Hangman {
         Hangman game = new Hangman();
         game.runGame();
 
-//        boolean gameRun = true;
-//        Scanner input = new Scanner(System.in);
-//        String[] threeLetters = {"cat", "dog", "bat", "wit", "tin", "hat", "far", "not", "dig", "fly"};
-//        String[] fourLetters = {};
-//
-//        System.out.println("Let's play Word Guesser v1");
-//
-//        while(gameRun){
-//
-//        }
     }
 
     public void runGame(){
+        while(gameFlag){
+
+            initialize_game_state();
+            wordFlag = false;
+
+            while(!wordFlag){
+                char nextGuess = get_next_guess();
+
+            }
+        }
+        game_over();
 
     }
 
     public String announce_game(){
-        return null;
+        return "Welcome to Hangman!\nLet's play!";
     }
 
     public String game_over(){
-        return null;
+        return "Game Over";
     }
 
     public void initialize_game_state(){
-
+        Random rand = new Random();
+        String[] threeLetters = {"cat", "dog", "bat", "wit", "tin", "hat"};
+        //String[] fourLetters = {};
+        int randomPick = rand.nextInt(5) + 1;
+        this.hiddenWord = threeLetters[randomPick];
+        this.numGuess = hiddenWord.length();
     }
 
     public Character get_next_guess(){
-        return null;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Guess a letter!");
+        return scanner.next().charAt(0);
     }
 
     public boolean is_word_guessed(){
@@ -57,11 +74,14 @@ public class Hangman {
     }
 
     public boolean ask_to_play_again(){
+        System.out.println("Play again?");
         return false;
     }
 
     public void print_current_state(){
+        System.out.println("Current Guesses: ");
 
+        System.out.println("You have " + numGuess + " tries left");
     }
 
     public void process(){
